@@ -15,7 +15,7 @@ public class Priority_scheduling {
 
 	public static void sortProcesses(process[] myProcesses) {
 		process temp;
-		// sorting according to arrival times
+		// sorting according to arrival times and priority
 		for (int i = 0; i < myProcesses.length; i++) {
 			for (int j = 0; j < myProcesses.length - (i + 1); j++) {
 				if (myProcesses[j].AT > myProcesses[j + 1].AT && myProcesses[j].Pri > myProcesses[j + 1].Pri) {
