@@ -1,7 +1,5 @@
 package college_ass;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class Priority_scheduling {
@@ -24,21 +22,6 @@ public class Priority_scheduling {
 					temp = myProcesses[j];
 					myProcesses[j] = myProcesses[j + 1];
 					myProcesses[j + 1] = temp;
-//					temp = myProcesses[j].pid;
-//					myProcesses[j].pid = myProcesses[j + 1].pid;
-//					myProcesses[j + 1].pid = temp;
-//					temp = myProcesses[j].AT;
-//					myProcesses[j].AT = myProcesses[j + 1].AT;
-//					myProcesses[j + 1].AT = temp;
-//					temp = myProcesses[j].BT;
-//					myProcesses[j].BT = myProcesses[j + 1].BT;
-//					myProcesses[j + 1].BT = temp;
-//					temp = myProcesses[j].RT;
-//					myProcesses[j].RT = myProcesses[j + 1].RT;
-//					myProcesses[j + 1].RT = temp;
-//					temp = myProcesses[j].Pri;
-//					myProcesses[j].Pri = myProcesses[j + 1].Pri;
-//					myProcesses[j + 1].Pri = temp;
 				}
 			}
 		}
@@ -61,7 +44,6 @@ public class Priority_scheduling {
 			processes[i].BT = myScanner.nextInt();
 			System.out.println("Enter Priority for process P" + (i + 1));
 			processes[i].Pri = myScanner.nextInt();
-//			TotalTime += processes[i].BT;
 		}
 
 		sortProcesses(processes);
