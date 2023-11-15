@@ -1,8 +1,11 @@
-package college_ass;
+package college_ass.scheduling;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
-public class premptive_sjf {
+public class RoundRobin {
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int n = 0;
@@ -21,6 +24,7 @@ public class premptive_sjf {
 		int[] CT = new int[n];// Completion Time
 		int[] TAT = new int[n];// Turn Around Time = completion time - Arrival time
 		int[] WT = new int[n];// Waiting Time = TAT - Burst Time
+		Queue<Integer> readyQueue = new LinkedList<Integer>();
 
 		// take input for arrival time and burst time for each process
 		for (int i = 0; i < n; i++) {
@@ -31,37 +35,43 @@ public class premptive_sjf {
 			RT[i] = BT[i]; // initializing Remaining Time of all processes to their Burst Time
 			TotalTime += BT[i];
 		}
-
-		while (TotalTime != 0) {
-			boolean flag = false;//to check if at least one process is ready
-			int minimum = Integer.MAX_VALUE;
-			int currentProcess = -1;
-			// loops over all process finds the process which has minimum remaining time
-			// and is in ready state i.e Arrived & Not Completed
+		System.out.println("\nEnter Time Quantum: ");
+		int TimeQ = myScanner.nextInt();
+		int currentProcess = -1;
+		int completed = 0;
+		while (currentTime<TotalTime) {
 			for (int i = 0; i < n; i++) {
-				if (AT[i] <= currentTime && RT[i] > 0) {
-					if (RT[i] < minimum) {
-						minimum = RT[i];
-						currentProcess = i;
-						flag=true;
+				if (AT[i] <= currentTime && RT[i] > 0 ) {
+					if(completed!=(n-1)) {
+						if(i!=currentProcess && (!readyQueue.contains(i)))
+							readyQueue.add(i);
 					}
 				}
 			}
-			if(flag==false)
+
+			if(!readyQueue.isEmpty())
+				currentProcess = readyQueue.poll();
+			
+			if(RT[currentProcess]<TimeQ) {
+				RT[currentProcess] = 0;
+				completed++;
 				currentTime++;
-			else {
-			RT[currentProcess]--;// decrease RT of current process by 1
-			currentTime++;
-			if (RT[currentProcess] == 0) {// if process is completed
 				CT[currentProcess] = currentTime;
 			}
-			TotalTime--;
+			else if (RT[currentProcess]==TimeQ) {
+				RT[currentProcess] -= TimeQ;
+				completed++;
+				currentTime += 2;
+				CT[currentProcess] = currentTime;
 			}
+			else {
+				RT[currentProcess] -= TimeQ;
+				currentTime += 2;
+			}
+			
 		}
-
 		float totalTAT = 0;
 		float totalWT = 0;
-
 		for (int i = 0; i < n; i++) {
 			TAT[i] = CT[i] - AT[i];
 			WT[i] = TAT[i] - BT[i];
@@ -69,7 +79,7 @@ public class premptive_sjf {
 			totalWT += WT[i];
 		}
 
-		System.out.println("\n\t\t----Premptive SJF(SRTF)----\t\t");
+		System.out.println("\n\t\t----Round Robin----\t\t");
 		System.out.println("ProcessID\tArrivalT\tBurstT\tCompletionT\tTurnAroundT\tWaitingT");
 		for (int i = 0; i < n; i++) {
 			System.out.println("P" + (i + 1) + "\t\t" + AT[i] + "\t\t" + BT[i] + "\t\t" + CT[i] + "\t\t" + TAT[i]
@@ -81,5 +91,3 @@ public class premptive_sjf {
 	}
 
 }
-
-
