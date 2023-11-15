@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class First_Next_fit {
+	@SuppressWarnings("unchecked")
 	public static void First_Fit(ArrayList<Integer> process_size, ArrayList<Integer> block_size, int n, int m) {
 		block_size = (ArrayList<Integer>) block_size.clone();
 		int[] allocation = new int[process_size.size()];
