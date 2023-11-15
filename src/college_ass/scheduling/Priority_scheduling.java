@@ -1,4 +1,4 @@
-package college_ass;
+package college_ass.scheduling;
 
 import java.util.Scanner;
 
@@ -33,7 +33,7 @@ public class Priority_scheduling {
 		Scanner myScanner = new Scanner(System.in);
 		System.out.println("Enter no. of processes: ");
 		n = myScanner.nextInt();
-		Priority_scheduling myInstance = new Priority_scheduling(); 
+		Priority_scheduling myInstance = new Priority_scheduling();
 		process[] processes = new process[n];
 		for (int i = 0; i < n; i++) {
 			processes[i] = myInstance.new process();
