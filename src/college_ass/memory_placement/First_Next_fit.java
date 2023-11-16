@@ -30,19 +30,28 @@ public class First_Next_fit {
 		int[] allocation = new int[process_size.size()];
 		Arrays.fill(allocation, -1);
 		int j = 0;
+		int count = 0;
 		// main logic -- find Next block that can fit the process
+
 		for (int i = 0; i < n; i++) {
+			count = 0;
 			for (; j < m; j = (j + 1) % m) {// mod m will help coming to start after end
+				if (count == m) { // avoiding infinitely checking blocks for a process that can't fit
+					break;
+				}
 				if (process_size.get(i) <= block_size.get(j)) {
 					if (allocation[i] == -1) {
 						allocation[i] = j;
 						block_size.set(j, block_size.get(j) - process_size.get(i));
-						break;//This ensures that j is not updated 
+
+						break;// This ensures that j is not updated
 					}
 				}
+				count++;
 			}
+
 		}
-		
+
 		System.out.println("\n\t--------------- Next Fit ---------------");
 		Display(process_size, block_size, allocation, n, m);
 	}
