@@ -3,7 +3,6 @@ package college_ass.page_replacement;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -148,13 +147,6 @@ public class page_replacement {
 					for (Integer j : FramesQueue) {
 						System.out.print(j + "\t");
 					}
-					if (i > 15) {
-						for (Entry<Integer, Integer> entry : indexHashMap.entrySet()) {
-							Integer key = entry.getKey();
-							Integer val2 = entry.getValue();
-							System.out.print("key is " + key + "\t value is: " + val2);
-						}
-					}
 					System.out.println();
 				} else {
 					pageHits++;
@@ -188,7 +180,7 @@ public class page_replacement {
 		for (int i = 0; i < refString.length; i++) {
 			pages[i] = Integer.parseInt(refString[i]);
 		}
-
+				
 		System.out.println("Enter no. of page frames: ");
 		int capacity = myScanner.nextInt();
 		int option = -1;
