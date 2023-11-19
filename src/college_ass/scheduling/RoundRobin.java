@@ -78,11 +78,11 @@ public class RoundRobin {
 			} else if (RT[currentProcess] == TimeQ) {
 				RT[currentProcess] -= TimeQ;
 				completed++;
-				currentTime += 2;
+				currentTime += TimeQ;
 				CT[currentProcess] = currentTime;
 			} else {
 				RT[currentProcess] -= TimeQ;
-				currentTime += 2;
+				currentTime += TimeQ;
 			}
 
 		}
