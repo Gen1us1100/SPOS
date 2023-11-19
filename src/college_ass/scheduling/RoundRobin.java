@@ -58,15 +58,16 @@ public class RoundRobin {
 		int currentProcess = -1;
 		int completed = 0;
 		boolean flag = false;
-		while (currentTime <= TotalTime) {
+		outer: while (currentTime <= TotalTime) {
 			for (int i = 0; i < n; i++) {
 				if (AT[i] <= currentTime && RT[i] > 0) {
 					if (completed != (n - 1)) {
 						if (i != currentProcess && (!readyQueue.contains(i))) {
 							readyQueue.add(i);
 							flag = true;
-							}
+						}
 					}
+
 				}
 			}
 			if (flag == false)
@@ -75,16 +76,13 @@ public class RoundRobin {
 				if (!readyQueue.isEmpty())
 					currentProcess = readyQueue.poll();
 
-				if (RT[currentProcess] < TimeQ) {
+				if (RT[currentProcess] <= TimeQ) {
 					currentTime += RT[currentProcess];
 					RT[currentProcess] = 0;
 					completed++;
 					CT[currentProcess] = currentTime;
-				} else if (RT[currentProcess] == TimeQ) {
-					RT[currentProcess] -= TimeQ;
-					completed++;
-					currentTime += TimeQ;
-					CT[currentProcess] = currentTime;
+					if (completed == n)
+						break outer;
 				} else {
 					RT[currentProcess] -= TimeQ;
 					currentTime += TimeQ;
