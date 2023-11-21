@@ -58,7 +58,7 @@ public class RoundRobin {
 		int currentProcess = -1;
 		int completed = 0;
 		boolean flag = false;
-		outer: while (currentTime <= TotalTime) {
+		while (currentTime < TotalTime) {
 			for (int i = 0; i < n; i++) {
 				if (AT[i] <= currentTime && RT[i] > 0) {
 					if (completed != (n - 1)) {
@@ -67,11 +67,12 @@ public class RoundRobin {
 							flag = true;
 						}
 					}
-
 				}
 			}
-			if (flag == false)
+			if (flag == false) {
 				currentTime++;
+				TotalTime++;
+			}
 			else {
 				if (!readyQueue.isEmpty())
 					currentProcess = readyQueue.poll();
@@ -81,14 +82,23 @@ public class RoundRobin {
 					RT[currentProcess] = 0;
 					completed++;
 					CT[currentProcess] = currentTime;
-					if (completed == n)
-						break outer;
 				} else {
 					RT[currentProcess] -= TimeQ;
 					currentTime += TimeQ;
+					
 				}
-			}
+				if(completed == (n-1)) {
+//					System.out.println("3 processes completed!");
+					currentTime += RT[currentProcess];
+					RT[currentProcess] = 0;
+					completed++;
+					CT[currentProcess] = currentTime;
 
+				}
+
+//				System.out.println("Completed: " + completed);
+//				System.out.println("Current Time: " + currentTime + "Current Process: " + (currentProcess+1) + " Total TIme: " + TotalTime);
+			}
 		}
 		float totalTAT = 0;
 		float totalWT = 0;
